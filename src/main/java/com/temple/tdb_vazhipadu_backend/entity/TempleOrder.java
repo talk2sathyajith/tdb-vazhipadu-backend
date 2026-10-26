@@ -1,19 +1,11 @@
 package com.temple.tdb_vazhipadu_backend.entity;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "temple_orders")
@@ -23,69 +15,84 @@ public class TempleOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "temple_id", nullable = false)
-    private Long templeId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "offering_id", nullable = false)
+    private Offering offering;
 
-    @Column(name = "devotee_name", nullable = false, length = 150)
+    @Column(name = "devotee_name", nullable = false)
     private String devoteeName;
 
-    @Column(nullable = false, length = 20)
-    private String phone;
-
-    @Column(nullable = false, length = 100)
-    private String nakshatra;
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
 
     @Column(name = "booking_date", nullable = false)
     private LocalDate bookingDate;
 
-    @Column(nullable = false, length = 20)
-    private String status;
+    @Column(nullable = false)
+    private int quantity;
 
     @Column(name = "total_amount", nullable = false,
             precision = 12, scale = 2)
     private BigDecimal totalAmount;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
-
-    @OneToMany(mappedBy = "order",
-               cascade = CascadeType.ALL,
-               orphanRemoval = true)
-    private List<OrderItem> items = new ArrayList<>();
+    @Column(nullable = false)
+    private String status = "BOOKED";
 
     protected TempleOrder() {
     }
 
-    public TempleOrder(Long templeId, String devoteeName,
-                       String phone, String nakshatra,
-                       LocalDate bookingDate) {
-        this.templeId = templeId;
+    public TempleOrder(
+            Offering offering,
+            String devoteeName,
+            String phoneNumber,
+            LocalDate bookingDate,
+            int quantity,
+            BigDecimal totalAmount) {
+
+        this.offering = offering;
         this.devoteeName = devoteeName;
-        this.phone = phone;
-        this.nakshatra = nakshatra;
+        this.phoneNumber = phoneNumber;
         this.bookingDate = bookingDate;
-        this.status = "CONFIRMED";
-        this.totalAmount = BigDecimal.ZERO;
-        this.createdAt = LocalDateTime.now();
-    }
-
-    public void addItem(OrderItem item) {
-        items.add(item);
-        item.setOrder(this);
-    }
-
-    public void setTotalAmount(BigDecimal totalAmount) {
+        this.quantity = quantity;
         this.totalAmount = totalAmount;
     }
 
-    public Long getId() { return id; }
-    public Long getTempleId() { return templeId; }
-    public String getDevoteeName() { return devoteeName; }
-    public String getPhone() { return phone; }
-    public String getNakshatra() { return nakshatra; }
-    public LocalDate getBookingDate() { return bookingDate; }
-    public String getStatus() { return status; }
-    public BigDecimal getTotalAmount() { return totalAmount; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public List<OrderItem> getItems() { return items; }
+    public TempleOrder(@NotNull @Positive Long templeId, String trim, String trim2, String trim3,
+			@NotNull LocalDate bookingDate2) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Long getId() {
+        return id;
+    }
+
+    public Offering getOffering() {
+        return offering;
+    }
+
+    public LocalDate getBookingDate() {
+        return bookingDate;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+	public void setTotalAmount(BigDecimal total) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addItem(OrderItem item) {
+		// TODO Auto-generated method stub
+		
+	}
 }
