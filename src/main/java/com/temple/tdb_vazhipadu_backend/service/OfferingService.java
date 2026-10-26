@@ -24,11 +24,7 @@ public class OfferingService {
     public OfferingResponse create(CreateOfferingRequest request) {
         boolean active = request.active() == null || request.active();
 
-        Offering offering = new Offering(
-            request.name().trim(),
-            request.price(),
-            active
-        );
+        Offering offering = null;
 
         return toResponse(repository.save(offering));
     }

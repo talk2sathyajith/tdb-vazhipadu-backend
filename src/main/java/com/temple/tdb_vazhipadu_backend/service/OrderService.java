@@ -1,25 +1,26 @@
-  package com.temple.tdb_vazhipadu_backend.service;
+package com.temple.tdb_vazhipadu_backend.service;
 
 
 	
 	
 
 	import java.math.BigDecimal;
-	import java.util.List;
+import java.util.List;
 
-	import org.springframework.stereotype.Service;
-	import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-	import com.temple.tdb_vazhipadu_backend.dto.CreateOrderRequest;
-	import com.temple.tdb_vazhipadu_backend.dto.OrderResponse;
-	import com.temple.tdb_vazhipadu_backend.dto.OrderResponse.OrderItemResponse;
-	import com.temple.tdb_vazhipadu_backend.entity.Offering;
-	import com.temple.tdb_vazhipadu_backend.entity.OrderItem;
-	import com.temple.tdb_vazhipadu_backend.entity.TempleOrder;
-	import com.temple.tdb_vazhipadu_backend.exception.BusinessRuleException;
-	import com.temple.tdb_vazhipadu_backend.exception.ResourceNotFoundException;
-	import com.temple.tdb_vazhipadu_backend.repository.OfferingRepository;
-	import com.temple.tdb_vazhipadu_backend.repository.OrderRepository;
+import com.temple.tdb_vazhipadu_backend.dto.CreateOrderRequest;
+import com.temple.tdb_vazhipadu_backend.dto.OrderResponse;
+import com.temple.tdb_vazhipadu_backend.dto.OrderResponse.OrderItemResponse;
+import com.temple.tdb_vazhipadu_backend.entity.Offering;
+import com.temple.tdb_vazhipadu_backend.entity.OrderItem;
+import com.temple.tdb_vazhipadu_backend.entity.TempleOrder;
+import com.temple.tdb_vazhipadu_backend.exception.BusinessRuleException;
+import com.temple.tdb_vazhipadu_backend.exception.ResourceNotFoundException;
+import com.temple.tdb_vazhipadu_backend.repository.OfferingRepository;
+import com.temple.tdb_vazhipadu_backend.repository.OrderRepository;
+
 
 	@Service
 	public class OrderService {
@@ -99,29 +100,31 @@
 	    }
 
 	    private OrderResponse toResponse(TempleOrder order) {
-	        List<OrderItemResponse> items = order.getItems()
-	            .stream()
-	            .map(item -> new OrderItemResponse(
-	                item.getOffering().getId(),
-	                item.getOffering().getName(),
-	                item.getQuantity(),
-	                item.getUnitPrice(),
-	                item.getLineTotal()
-	            ))
-	            .toList();
-
-	        return new OrderResponse(
-	            order.getId(),
-	            order.getTempleId(),
-	            order.getDevoteeName(),
-	            order.getPhone(),
-	            order.getNakshatra(),
-	            order.getBookingDate(),
-	            order.getStatus(),
-	            order.getTotalAmount(),
-	            order.getCreatedAt(),
-	            items
-	        );
+//	        List<OrderItemResponse> items = order.getItems()
+//	            .stream()
+//	            .map(item -> new OrderItemResponse(
+//	                item.getOffering().getId(),
+//	                item.getOffering().getName(),
+//	                item.getQuantity(),
+//	                item.getUnitPrice(),
+//	                item.getLineTotal()
+//	            ))
+//	            .toList();
+//
+//	        return new OrderResponse(
+//	            order.getId(),
+//	            order.getTempleId(),
+//	            order.getDevoteeName(),
+//	            order.getPhone(),
+//	            order.getNakshatra(),
+//	            order.getBookingDate(),
+//	            order.getStatus(),
+//	            order.getTotalAmount(),
+//	            order.getCreatedAt(),
+//	            items
+//	        );
+	    	
+	    	return null;
 	    }
 	}
-
+	
